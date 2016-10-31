@@ -1,4 +1,4 @@
-package com.wxhl.edu.resipostory;
+package com.wxhl.edu.repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class RequestRespostory {
 	private JedisPool jedisPool;
 	
 	/*
-	 * ²éËùÓÐµÄÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ï¢
 	 * */
 	public Map<String,String> getAllWord(String myKey){
 		Jedis jedis = jedisPool.getResource();
@@ -36,7 +36,7 @@ public class RequestRespostory {
 	}
 	
 	/*
-	 * ÐÂÔöºÍ¸üÐÂ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½
 	 * **/
 	public boolean saveOrUpdate(String key, String value){
 		Jedis jedis = jedisPool.getResource();
@@ -47,7 +47,7 @@ public class RequestRespostory {
 	}
 	
 	/*
-	 * É¾³ý
+	 * É¾ï¿½ï¿½
 	 * */
 	public boolean deleteWord(String key){
 		Jedis jedis = jedisPool.getResource();
