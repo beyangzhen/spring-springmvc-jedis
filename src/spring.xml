@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan base-package="com.wxhl.edu">
+		<!-- 避免执行spring和springmvc时，创建了两个bean -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true -->
+		<property name="blockWhenExhausted" value="true"></property>
+		<!-- 设置的逐出策略类名, 默认DefaultEvictionPolicy(当连接超过最大空闲时间,或连接数超过最大空闲连接数) -->
+		<property name="evictionPolicyClassName" value="org.apache.commons.pool2.impl.DefaultEvictionPolicy"></property>
+		<!-- 是否启用pool的jmx管理功能, 默认true -->
+		<property name="jmxEnabled" value="true"></property>
+		<!-- 是否启用后进先出, 默认true -->
+		<property name="lifo" value="true"></property>
+		<!-- 最大空闲连接数, 默认8个 -->
+		<property name="maxIdle" value="8"></property>
+		<!-- 最小空闲连接数, 默认0 -->
+		<property name="minIdle" value="0"></property>
+		<!-- 获取连接时的最大等待毫秒数(如果设置为阻塞时BlockWhenExhausted),如果超时就抛异常, 小于零:阻塞不确定的时间,  默认-1 -->
+		<property name="maxWaitMillis" value="-1"></property>
+		<!-- 逐出连接的最小空闲时间 默认1800000毫秒(30分钟) -->
+		<property name="minEvictableIdleTimeMillis" value="1800000"></property>
+		<!-- 在获取连接的时候检查有效性, 默认false -->
+		<property name="testOnBorrow" value="true"></property>
+		<!-- 在空闲时检查有效性, 默认false -->
+		<property name="testWhileIdle" value="false"></property>
+		<!-- 最大连接数 -->
+		<property name="maxTotal" value="2048"></property>
+	</bean>
+	
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		 <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+		 <constructor-arg name="host" value="127.0.0.1"></constructor-arg>
+		 <constructor-arg name="port" value="6379"></constructor-arg>
+		 <constructor-arg name="timeout" value="100000"></constructor-arg>
+		 <constructor-arg name="password" value="wxhl"></constructor-arg>
+	</bean>
+</beans>
