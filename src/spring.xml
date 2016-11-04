@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<context:component-scan base-package="com.wxhl.edu">
-		<!-- 避免执行spring和springmvc时，创建了两个bean -->
+		<!-- exclude 指定此spring不扫描。避免执行重复扫描 -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
